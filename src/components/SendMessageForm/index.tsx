@@ -1,16 +1,21 @@
 import React, { useState }  from 'react';
-import { Alert, Keyboard } from 'react-native';
-import { useAuth } from '../../hooks/auth';
-import { api } from '../../services/api';
-import { Button } from '../Button';
 import {
     Container,
-    TextInput
+    TextInput,
+    AlertContainer
 } from './styles';
+import { Alert, Keyboard, Modal } from 'react-native';
+
+import { useAuth } from '../../hooks/auth';
+import { api } from '../../services/api';
+
+import { AlertModal } from '../AlertModal';
+import { Button } from '../Button';
 
 export function SendMessageForm() {
     const [message, setMessage] = useState('');
     const [sendMessage, setSendMessage] = useState(false);
+    const [openAlert, setOpenAlert] = useState(false);
     const { setModalIsOpen, ModalIsOpen } = useAuth();
     
     async function handleMessageSubmit() {
@@ -26,8 +31,12 @@ export function SendMessageForm() {
             setModalIsOpen(!ModalIsOpen);
             Keyboard.dismiss();
         }else{
-            Alert.alert('Escreva a messagem para enviar.');
+            setOpenAlert(!openAlert)
         }   
+    }
+
+    function handleCloseAlert() {
+        setOpenAlert(!openAlert);
     }
 
     return(
@@ -50,6 +59,21 @@ export function SendMessageForm() {
                 onPress={handleMessageSubmit}
                 isLoading={sendMessage}
            />
+
+                <Modal
+                    animationType='fade'
+                    visible={openAlert}
+                    onRequestClose={handleCloseAlert}
+                    transparent
+                >
+                    <AlertContainer>
+                        <AlertModal
+                            title="Insira a sua messagem!"
+                            buttonText="CONTINUAR"
+                            onPress={handleCloseAlert}
+                        />
+                    </AlertContainer>
+                </Modal>
         </Container>
     )
 }

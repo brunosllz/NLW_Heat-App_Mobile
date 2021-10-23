@@ -23,3 +23,13 @@ export const TextInput = styled.TextInput.attrs({
     width: 100%;
     height: ${RFValue(88)}px;
 `;
+
+export const AlertContainer = styled(GestureHandlerRootView)`
+    flex: 1;
+
+    background-color: rgba(0, 0, 8, 0.6);
+
+    justify-content: center;
+
+    padding: 0 ${RFValue(20)}px;
+`;

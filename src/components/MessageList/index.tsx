@@ -7,6 +7,7 @@ import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { Message, MessageProps } from '../Message';
 import { api } from '../../services/api';
 import { io } from 'socket.io-client';
+import { MESSAGES_EXAMPLE } from '../../utils/messages';
 
 let messageQueue: MessageProps[] = [];
 
@@ -46,7 +47,7 @@ export function MessageList() {
     return(
         <Container
             contentContainerStyle={{
-                paddingTop: RFPercentage(17),
+                paddingTop: RFPercentage(15),
                 paddingBottom: RFValue(184)
             }}
             keyboardShouldPersistTaps="never"
